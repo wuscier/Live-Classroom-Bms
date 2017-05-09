@@ -1,0 +1,90 @@
+﻿@model RedCdn.ClassRoom.BMS.RecordFileModel
+@{
+    var pageSize = PageData["PageSize"];
+    ViewBag.Title = ViewBag.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/swfembed.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/layer/layer.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/content-list-method.js")" type="text/javascript"></script>
+<div class="clear">
+    <h6 class="tips"><span id="sptitle">@ViewBag.Title</span></h6>  
+    <div class="ziye-cont">
+        <div class="info-l" style="position:relative">
+            <div class="video">
+                <div id="player" style=" z-index: 99999; position: absolute;  height: 290px;">
+                </div>
+            </div>
+        </div>
+        <!--视频说明-->
+
+        <div class="info-r">
+            <ul>
+                <li>日        期：  @Html.DisplayFor(m => m.StartTime)</li>
+                <li>课        程：  @Html.DisplayFor(m => m.CurriCulumName)</li>
+                <li>年        级：  @Html.DisplayFor(m => m.GradeName)</li>
+                <li>课        序：  @Html.DisplayFor(m => m.CurriculumNumber)</li>
+                <li>主讲教室：  @Html.DisplayFor(m => m.MainClassRoomName)</li>
+                <li>听课教室：  @Html.DisplayFor(m => m.ListenClassRooms)</li>
+                <li>课堂时长：  @Html.DisplayFor(m => m.Duration)</li>
+
+                <li>
+                    <a href="@Html.DisplayFor(m => m.FilePlayUrl)" class="bigbtn" target="_blank">文件下载
+                       <!--  <input id="download-video" @*dfile="@Html.DisplayFor(m => m.FilePlayUrl)"*@ style="margin-top:0; " type="button" class="submit1" onmouseover="this.style.backgroundPosition='left -33px'" onmouseout="this.style.backgroundPosition='left top'" value="文件下载"> -->
+                    </a>
+                   <!--   <a href="@Url.Action("downloadfile", "recordfile",new {url=Model.FilePlayUrl})">downloadfile</a>-->
+
+                    <a url="@Url.Action("delete", "recordfile", new { id = Model.Id })" delete-hint="录制课堂" id="a-delete" href="###"><input style="margin-top:0; margin-left:12px;" type="button" class="submit1" onmouseover="this.style.backgroundPosition='left -33px'" onmouseout="this.style.backgroundPosition='left top'" value="删除课堂录像"></a>
+                        <a href="javascript:history.go(-1);"><input style="margin-top:0; margin-left:12px;" type="button" class="submit" onmouseover="this.style.backgroundPosition='left -33px'" onmouseout="this.style.backgroundPosition='left top'" value="返 回"></a>
+                        <a id="downfile" target="_blank"><span id="autoclick"></span></a>
+</li>
+            </ul>
+        </div>
+        <!--视频说明-->
+    </div>
+
+</div>
+
+<script>
+    $(function() {
+        createnavigation();
+        initPlayer();
+        
+        deletecontentfromlist('/recordfile/index');
+    });
+    
+    function initPlayer() {
+        var option = {
+            url:'@ViewBag.PlayUrl',
+            ctype: 3,
+            isautoplay: 0,
+            divid: 'player',
+            width: 440,
+            height: 290,
+            buffermsec: 1000,
+            playerdesc: '同步课堂v1.0'
+        };
+        playvideo(option);
+    }
+
+    //$("input#download-video").click(function () {
+
+    //    var url = $('input#download-video').attr('dfile');
+    //    downloadfile(url);
+    //});
+    
+    function downloadfile(url) {
+        $('#downfile').attr('href', url);
+        $('#autoclick').click();
+    }
+
+    function createnavigation() {
+
+        var tille = $('#sptitle').text();
+        var div = $('div.position');
+        div.html('');
+        div.append('当前位置： <a href="/">首页 </a> ><a href="@Url.Action("index","recordfile")">录制管理</a> >' + tille);
+    }
+    
+</script>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4F931B46-A12A-4017-8919-98BFFEF02133}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Redcdn.ClassRoom.Service</RootNamespace>
+    <AssemblyName>Redcdn.ClassRoom.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\lib\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="GM.Orm">
+      <HintPath>..\lib\GM.Orm.dll</HintPath>
+    </Reference>
+    <Reference Include="GM.Service.InterfaceServerControl">
+      <HintPath>..\lib\GM.Service.InterfaceServerControl.exe</HintPath>
+    </Reference>
+    <Reference Include="GM.Utilities">
+      <HintPath>..\lib\GM.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CacheService.cs" />
+    <Compile Include="CurriculumNameService.cs" />
+    <Compile Include="CurriculumNumberService.cs" />
+    <Compile Include="CurriculumService.cs" />
+    <Compile Include="GradeService.cs" />
+    <Compile Include="InterfaceServer.cs" />
+    <Compile Include="LiveClassroomService.cs" />
+    <Compile Include="NumberPoolService.cs" />
+    <Compile Include="RemoteChannelService.cs" />
+    <Compile Include="SchoolRoomService.cs" />
+    <Compile Include="CommonHelp.cs" />
+    <Compile Include="SettingConfig.cs" />
+    <Compile Include="SystemManagerService.cs" />
+    <Compile Include="EntityService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeekDayService.cs" />
+    <Compile Include="RecordFileService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Redcdn.ClassRoom.Module\Redcdn.ClassRoom.Module.csproj">
+      <Project>{03cce55c-3335-4b00-b0ef-528cb7d5f20f}</Project>
+      <Name>Redcdn.ClassRoom.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

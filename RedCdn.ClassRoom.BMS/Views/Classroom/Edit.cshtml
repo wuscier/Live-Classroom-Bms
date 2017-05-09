@@ -1,0 +1,101 @@
+﻿@using Redcdn.ClassRoom.Facade;
+@using RedCdn.ClassRoom.BMS.Models
+@model RedCdn.ClassRoom.BMS.SchoolRoomModel
+
+@{        
+    var pageSize = PageData["PageSize"];
+
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var numPool = (List<NumberPoolDto>)ViewBag.NotAllcatedNumPool;
+    var action = ViewBag.IsCreate ? "createsubmit" : "editsubmit";
+    var titledesc = (numPool.Count == 0 && ViewBag.IsCreate )?"没有可用教室号，无法创建教室": ViewBag.TitleDesc;
+    var navigationDesc = ViewBag.IsCreate ? "创建教室" : "编辑教室";
+    var submitDisable = "";
+
+    //如果号码吃没有号码，不允许提交修改
+    if(ViewBag.IsCreate && numPool.Count==0){
+        submitDisable = "disabled";
+    }
+
+    var currentroomnum = "当前教室号 " + @Model.SchoolRoomNum;
+
+    RemoteChannelModel channel = ViewBag.channel ?? new RemoteChannelModel();
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type ="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+    .management li input.t {width:400px;}
+</style>
+<div class="clear">
+   @using (Html.BeginForm(action, "classroom",new { page=ViewBag.Page}, FormMethod.Post))
+   {
+	   		<h6 class="tips"><span>@titledesc</span></h6>
+        	<ul class="management" ngdesc="@navigationDesc">
+            	<li><span><font>教  室  号：</font></span>
+                    <select name="SchoolRoomNum" style="width:215px; margin-left: 12px;"> 
+                    @if (!string.IsNullOrEmpty(Model.SchoolRoomNum)){ 
+                        <option selected="selected" value="@Model.SchoolRoomNum">@currentroomnum</option>
+                    }
+
+                    @foreach (var item in numPool){
+                        <option value="@item.ClassNo">@item.ClassNo</option>
+                    }
+                    </select><font class="wenzig">从号码池选择号码分配给教室</font>
+            	</li>
+                @Html.TextBox("Id", @Model.Id, new { type = "hidden" })
+                <li><span><font> 教室名称：</font></span>@Html.TextBoxFor(m => m.SchoolRoomName)@Html.ValidationMessageFor(m => m.SchoolRoomName)</li>
+                <li><span><font> 详细地点：</font></span>@Html.TextBoxFor(m => m.SchoolRoomAddress, new { @maxlength ="64"})@Html.ValidationMessageFor(m => m.SchoolRoomAddress)</li>
+	            <li><span><font> 教室串号：</font></span>
+	                @if (@ViewBag.IsCreate)
+	                {
+	                    @Html.TextBoxFor(m => m.SchoolRoomIMEI)
+	                }
+	                else
+	                {
+	                    @Html.TextBoxFor(m => m.SchoolRoomIMEI, new {@readonly = "readonly"})
+	                }
+	                @Html.ValidationMessageFor(m => m.SchoolRoomIMEI)
+	            </li>
+	            <li>
+	                <span><font> 校外推流地址： </font></span>
+	                @Html.TextBox("channel.PushStreamUrl", channel.PushStreamUrl, new { @class = "t" })
+	            </li>
+	            <li>
+	                <span><font> 校外播放地址： </font></span>
+                    @Html.TextBox("channel.PlayStreamUrl", channel.PlayStreamUrl, new { @class = "t" })
+	            </li>
+	            <li><span></span></li>
+                <li><span><font class="wenzitop"> 备        注：</font></span>
+				     @Html.TextArea("Remark", @Model.Remark)
+				</li>
+	            <li style="height: 120px; margin-top: 60px;">
+	                @Html.Hidden("channel.Id", channel.Id)
+	                <input @submitDisable style="margin-top: 0; margin-left: 131px;" type="submit" class="submit1" onmouseover="this.style.backgroundPosition = 'left -33px'" onmouseout="this.style.backgroundPosition = 'left top'" value="@ViewBag.TitleDesc">
+	                <a id="a-cancel" href="@Url.Action("index", "classroom", new {page = @ViewBag.Page, count = @pageSize})">
+	                    <input style="margin-top: 0; margin-left: 60px;" type="button" class="submit1" onmouseover="this.style.backgroundPosition = 'left -33px'" onmouseout="this.style.backgroundPosition = 'left top'" value="取消">
+	                </a>
+	            </li>
+            </ul>
+   }
+	    </div>
+   
+<script type="text/javascript">
+    $(function () {
+        createnavigation();
+    });
+
+    /*创建面包屑导航菜单*/
+    function createnavigation() {
+        var url = $('a#a-cancel').attr('href');
+        var ngDesc = $('ul.management').attr('ngdesc');
+
+        var div = $('div.position');
+        div.html('');
+        div.append('当前位置： <a href="/">首页 </a> ><a href="' + url + '"> 教室管理</a> >' + ngDesc);
+    }
+</script>

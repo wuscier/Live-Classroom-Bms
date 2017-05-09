@@ -1,0 +1,64 @@
+﻿@using RedCdn.ClassRoom.BMS;
+@using Redcdn.ClassRoom.Facade;
+@model RedCdn.ClassRoom.BMS.Models.IndexPaging<LiveClassroomModel>
+
+@{
+    ViewBag.Title = "课堂监看";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pageSize = PageData["PageSize"];
+}
+
+<link href="@Url.Content("~/Content/css/jquery-paging.css")" rel="stylesheet" type="text/css"></link>
+<script src="@Url.Content("~/Scripts/layer/layer.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/content-list-method.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-paging.js")" type="text/javascript"></script>
+
+<ul class="clear view">
+    <li class="text"> 正在上课的同步教室列表 </li>
+</ul>
+<div id="liveclassroom-render">
+    @{Html.RenderPartial("_LiveClassRoomList", Model.Paging);}
+</div>
+
+<!--进行分页的div必须按照包含下述attr-->
+<div id="query-paging" total-count="@Model.Paging.TotalCount" page-size="@pageSize" div-render="liveclassroom-render" paging-url="@Url.Action("query","liveclassroom")" class="page clear"> 
+</div>
+<script type="text/javascript">
+    $(function () {
+        createnavigation();
+
+        /*注册分页需要的url信息，生成分页链接，后期点击分页使用*/
+        paging("query-paging"/*显示分组链接的divid*/,
+            "grouplist"/*渲染分组的tableid*/);
+    });
+
+    function ajaxsuccess(data) {
+        /*首先填充查询结果，以便获取totalcount*/
+        $('div#liveclassroom-render').html(data);
+
+        /*将table上的totalcount赋值到divpaging，用于设置分页链接是否显示*/
+        var count = $('#grouplist').attr('total-count');
+
+        /*如果没有数据，提示用户*/
+        if (count == 0)
+            layer.msg("没有满足条件的数据", { time: 1000 });
+
+        /*设置分页总数*/
+        var divpaging = $('div#query-paging');
+        console.log('totalcount:' + count);
+        divpaging.attr('total-count', count);
+
+        /*注册分页需要的url信息，生成分页链接，后期点击分页使用*/
+        paging("query-paging"/*显示分组链接的divid*/,
+            "grouplist"/*渲染分组的tableid*/);
+    }
+
+
+    /*创建面包屑导航菜单*/
+    function createnavigation() {
+        var div = $('div.position');
+        div.html('');
+        div.append('当前位置: <a href="/">首页</a> > 课堂监看');
+    }
+</script>
+

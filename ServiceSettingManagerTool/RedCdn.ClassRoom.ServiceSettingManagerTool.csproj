@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CB4774CA-9A78-46A4-9391-EE28AD6F9432}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RedCdn.ClassRoom.ServiceSettingManagerTool</RootNamespace>
+    <AssemblyName>RedCdn.ClassRoom.ServiceSettingManagerTool</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GM.Business.Module">
+      <HintPath>..\lib\GM.Business.Module.dll</HintPath>
+    </Reference>
+    <Reference Include="GM.Orm">
+      <HintPath>..\lib\GM.Orm.dll</HintPath>
+    </Reference>
+    <Reference Include="GM.Utilities">
+      <HintPath>..\lib\GM.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EventNavigation.cs" />
+    <Compile Include="MainFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainFrm.Designer.cs">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Module\Catalog.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CatalogManager.cs" />
+    <Compile Include="ServerControlManager.cs" />
+    <Compile Include="TabContentManager.cs" />
+    <Compile Include="UIControl\FrDeviceInfoKey.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrDeviceInfoKey.Designer.cs">
+      <DependentUpon>FrDeviceInfoKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrIesRecource.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrIesRecource.Designer.cs">
+      <DependentUpon>FrIesRecource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrIsaServiceConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrIsaServiceConfig.Designer.cs">
+      <DependentUpon>FrIsaServiceConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrLssResources.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrLssResources.Designer.cs">
+      <DependentUpon>FrLssResources.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrLssServiceConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrLssServiceConfig.Designer.cs">
+      <DependentUpon>FrLssServiceConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrServiceConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrServiceConfig.Designer.cs">
+      <DependentUpon>FrServiceConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrIESServiceConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrIESServiceConfig.Designer.cs">
+      <DependentUpon>FrIESServiceConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrServiceInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrServiceInfo.Designer.cs">
+      <DependentUpon>FrServiceInfo.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MainFrm.resx">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UIControl\FrDeviceInfoKey.resx">
+      <DependentUpon>FrDeviceInfoKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrIesRecource.resx">
+      <DependentUpon>FrIesRecource.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrIESServiceConfig.resx">
+      <DependentUpon>FrIESServiceConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrIsaServiceConfig.resx">
+      <DependentUpon>FrIsaServiceConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrLssResources.resx">
+      <DependentUpon>FrLssResources.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrLssServiceConfig.resx">
+      <DependentUpon>FrLssServiceConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrServiceConfig.resx">
+      <DependentUpon>FrServiceConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrServiceInfo.resx">
+      <DependentUpon>FrServiceInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Content Include="setting.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\config.png" />
+    <Content Include="Resource\resources.png" />
+    <Content Include="Resource\serviceconfig.png" />
+    <Content Include="Resource\System.png" />
+    <Content Include="Resource\System1.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

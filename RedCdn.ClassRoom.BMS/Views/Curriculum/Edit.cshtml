@@ -1,0 +1,281 @@
+﻿@using Redcdn.ClassRoom.Facade;
+@using RedCdn.ClassRoom.BMS.Models;
+@model EditCurriculumModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pageSize = PageData["PageSize"];
+    var isCreate =  @ViewBag.IsCreate;
+    var submitAction = isCreate ? "createsubmit":"editsubmit";
+    var page = @ViewBag.Page;    
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.multiple.select.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type ="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/layer/layer.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css"/>
+<link href="@Url.Content("~/Content/css/multiple-select.css")" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+    
+    .management li.record  {height:30px;}
+    .management li.record div.h {width:120px;float:left;height:30px;font-family: "微软雅黑";}
+    .management li.record div.f {width:320px;float:left;height:30px;}
+    .management li.record div.f span {color:#444;}
+    .management li.record div.f input   {}
+    #Name {width:258px;}
+
+</style>
+<div class="clear">
+	   		<h6 class="tips"><span>@ViewBag.Title</span></h6>
+    @using (Html.BeginForm(@submitAction, "curriculum", new { page=@page}, FormMethod.Post))
+    {
+            @Html.Hidden("id", @Model.Curriculum.Id);
+            @Html.Hidden("ListenClassRoomIds", "");
+        	<ul class="management">
+	            <li>
+	                <span><font>课程名称：</font></span>
+                    @Html.TextBox("Name",Model.Curriculum.Name)
+	            </li>
+                <li><span><font>星        期：</font></span>
+                    <select style="width:260px; margin-left: 12px;" id="WeekDayId" name="WeekDayId">
+                        @foreach (var weekdata in @Model.CurriculumEidtInfo.WeekDayList)
+                        {
+                            if (@weekdata.Id == @Model.Curriculum.WeekDayId)
+                            {
+                                    <option value="@weekdata.Id" selected="selected">@weekdata.Name</option>
+                            }
+                            else
+                            {
+                                    <option value="@weekdata.Id">@weekdata.Name</option>
+                            }
+                        }
+                    </select>
+            	</li>
+                <li><span><font> 学        科：</font></span>
+                    <select style="width:260px; margin-left: 12px;" id="CurriculumNameId" name="CurriculumNameId">   
+                        @foreach (var curname in @Model.CurriculumEidtInfo.CurriculumNameDtoList)
+                        {
+                            if (curname.Id == @Model.Curriculum.CurriculumNameId)
+                            {
+                                 <option selected="selected" value="@curname.Id">@curname.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@curname.Id">@curname.Name</option>
+                            }
+                        }
+                    </select>
+                </li>
+                <li><span><font> 年        级：</font></span>
+                    <select style="width:260px; margin-left: 12px;" id="GradeId" name="GradeId">
+                        @foreach (var gra in @Model.CurriculumEidtInfo.GradeDtoList)
+                        {
+                            if (gra.Id == @Model.Curriculum.GradeId)
+                            { 
+                                <option selected="selected" value="@gra.Id">@gra.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@gra.Id">@gra.Name</option>
+                            }
+                        }
+                    </select>
+                </li>
+				  <li><span><font> 课        序：</font></span>
+                      <select style="width:260px; margin-left: 12px;" id="CurriculumNumberId" name="CurriculumNumberId"> 
+                          @foreach (var cnum in @Model.CurriculumEidtInfo.CurriculumNumberDtoList)
+                          {
+                              if (cnum.Id == @Model.Curriculum.CurriculumNumberId)
+                              {
+                                <option selected="selected" value="@cnum.Id">@cnum.Name</option>
+                              }
+                              else
+                              {
+                                <option value="@cnum.Id">@cnum.Name</option>
+                              }
+                          }
+                      </select>
+				  </li>
+				    <li><span><font> 主讲教室：</font></span>
+                        <select style="width:260px; margin-left: 12px;" id="MainclassRoomId" name="MainclassRoomId"> 
+                            @foreach (var mainclass in @Model.CurriculumEidtInfo.ClassRoomDtoList)
+                            {
+                                if (mainclass.Id == @Model.Curriculum.MainclassRoomId)
+                                { 
+                                    <option selected="selected" value="@mainclass.Id">@mainclass.SchoolRoomName</option>
+                                }
+                                else
+                                {
+                                    <option value="@mainclass.Id">@mainclass.SchoolRoomName</option>
+                                }
+                            }
+                        </select>
+				    </li>
+	            <li><span><font>听课教室：</font></span>
+	                <select style="width: 260px; margin-left: 12px;" id="mulistenids" name="mulistenids" multiple="multiple">
+	                    @foreach (var listenroom in @Model.CurriculumEidtInfo.ClassRoomDtoList)
+	                    {
+	                        <option value="@listenroom.Id">@listenroom.SchoolRoomName</option>
+	                    }
+	                </select>
+	            </li>
+	            <li class="record">
+	                <div class="h">校内直播：</div>
+	                <div class="f">
+	                    <span>
+                            @Html.CheckBox("IsPush", @Model.Curriculum.IsPush, new { style = "width:23px" })
+                            @Html.Label("IsPush", "直播")
+                        </span>
+	                    <span>
+                            @Html.CheckBox("IsRecord", @Model.Curriculum.IsRecord, new { style = "width: 23px" })
+                            @Html.Label("IsRecord", "自动录制")
+                        </span>
+	                </div>
+	            </li>
+	            <li class="record">
+	                <div class="h">校外直播：</div>
+	                <div class="f">
+	                    <span>
+                            @Html.CheckBox("IsPushRemote", @Model.Curriculum.IsPushRemote, new { style = "width:23px" })
+                            @Html.Label("IsPushRemote", "直播")
+                        </span>
+	                    <span>
+                            @Html.CheckBox("IsRecordRemote", @Model.Curriculum.IsRecordRemote, new { style = "width: 23px" })
+                            @Html.Label("IsRecordRemote", "自动录制")
+                        </span>
+	                </div>
+	            </li>
+				<li style="height:120px;  margin-top: 60px;">
+                    <input id="edit-submit" style="margin-top:0; margin-left:131px;" type="submit" class="submit1" onmouseover="this.style.backgroundPosition='left -33px'" onmouseout="this.style.backgroundPosition='left top'" value="@ViewBag.Title">
+                    <a href="@Url.Action("index","curriculum",new{page=@page,count=@pageSize})">
+                    <input style="margin-top:0; margin-left:60px;" type="button" class="submit1" onmouseover="this.style.backgroundPosition='left -33px'" onmouseout="this.style.backgroundPosition='left top'" value="取消">
+                </a>
+                 </li>
+            </ul>
+    }
+</div>
+<script>
+    $(function () {
+        setselectedlistnerooms();
+
+        createnavigation();
+
+        $('input#edit-submit').bind('click', function (e) {
+            e.preventDefault();
+
+            if (!validate())
+                return false;
+
+            submit();
+        });
+
+        $("#IsRecord,#IsRecordRemote").click(function(e) {
+            //debugger;
+            var $this = $(this),
+                $parent = $this.parents("div:first").find("[id^=IsPush]");
+            if ($this.is(":checked")) {
+                if (!$parent.is(":checked")) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+            return true;
+        });
+        $("#IsPush,#IsPushRemote").click(function (e) {
+            var $this = $(this),
+                $parent = $this.parents("div:first").find("[id^=IsRecord]");
+            
+            if (!$this.is(":checked")) {
+                $parent.removeAttr("checked");
+            }
+        });
+    });
+
+    function validate(e) {
+        var selectlistenroomids = getselectedlistenrooms();
+        var mainclassid = $('select#MainclassRoomId').val();
+        if (!!!$("#Name").val()) {
+            layer.msg("请输入课程名称");
+            return false;
+        }
+
+        if (mainclassid == null || mainclassid == "") {
+            layer.msg('请选择一个主讲教室');
+            return false;
+        }
+
+        if (selectlistenroomids == null || selectlistenroomids == "") {
+            layer.msg('请选择一个听课教室');
+            return false;
+        }
+
+        if (selectlistenroomids.indexOf(mainclassid) > -1) {
+            layer.msg('“主讲教室”不能与“听课教室”为同一个教室');
+            return false;
+        }
+        return true;
+    }
+
+    function submit() {
+
+        getselectedlistenrooms();
+
+        $('form').ajaxSubmit({
+            success: function (result, statusText) {
+                console.log(result.success);
+                if (result.success == false) {
+                    layer.msg(result.message);
+                }
+                else {
+                    var href = '@Url.Action("index", "curriculum",null)';
+                    href+='?page='+'@ViewBag.Page';
+                    href+='&'+'count='+'@pageSize';
+                    location.href = href;
+                }
+            },
+            error: function (result) {
+                layer.msg(result.message);
+            },
+            complete: function (result) {
+                if (result.success == false)
+                    layer.msg(result.message);
+            }
+        });
+    }
+
+    function getselectedlistenrooms() {
+        var selectedids = $("select#mulistenids").multipleSelect("getSelects");
+        var tmp="";
+        for (i = 0; i < selectedids.length; i++) {
+            tmp += selectedids[i] + ',';
+        }
+        var ids = tmp.substring(0, tmp.length - 1);
+        $('input#ListenClassRoomIds').attr('value', ids);
+        return ids;
+    }
+
+    function setselectedlistnerooms() {
+        var select = $('select#mulistenids');
+        select.multipleSelect();
+                
+        var ids = '[' + '@Model.Curriculum.ListenClassRoomIds' + ']';
+        select.multipleSelect("setSelects", eval(ids));
+    }
+
+    /*创建面包屑导航菜单*/
+    function createnavigation() {
+        var div = $('div.position');
+        console.log(div);
+        
+        div.html('');
+        var href = '当前位置： <a href="/">首页 </a> ><a href="';
+        href += '@Url.Action("index","curriculum",new{page=@page,count=@pageSize})';
+        href += '"> 课程管理</a> >';
+        href += '@ViewBag.Title';
+        console.log(href);
+
+        div.append(href);
+    }
+</script>

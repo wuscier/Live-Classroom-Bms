@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 如下设定为移动端页面禁止缩放等功能，按需自行定义-->
+<meta content="width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=0.5, user-scalable=0" name="viewport">
+<meta content="target-densitydpi=320,width=640,user-scalable=no" name="viewport">
+<title>player</title>
+<!--播放器使用需要加载如下三个文件，一个css和俩js文件。jquery可以使用自己的 -->
+<link rel="stylesheet" type="text/css" href="mediaelementplayer.min.css">
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="mediaelement-and-player.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+			var url= "";
+			//非pc终端，直播采用hls
+			if(mejs.MediaFeatures.isAndroid || mejs.MediaFeatures.isiOS){
+				url = "{$ios_playurl$}";
+			}
+			else{
+			//pc终端，直播采用flv
+				url = "{$pc_playurl$}";
+			}
+		    var option= {
+            url: url,
+            ctype:1,
+            plugin_type:0,
+            width:602,
+            height:402,
+            autoplay:true,
+            loop : false
+        };
+		
+		//elementid必须与video标签中的id一致
+        $("#player1").player(option);
+        /*
+           必须使用一个指定id的video标签来嵌入视频，这里是player1. 播放器的使用option中定义了播放器参数，包括width/height 宽度和高度。
+           url为播放地址，手机端可使用hls源，iphone不能播放flv.android播放flv得安装flashplayer.
+           ctype指播放类型， 1直播，3点播。点播有进度条可拖动
+           loop循环播放，直播下无效。autoplay,是否页面加载时自动播放。
+        */
+	});
+</script>
+</head>
+ <body class="androidbg">
+ <!--用于渲染播放的div-->
+<div class="video"> 
+    <video id="player1"></video>
+</div>
+     
+ </body>
+</html>

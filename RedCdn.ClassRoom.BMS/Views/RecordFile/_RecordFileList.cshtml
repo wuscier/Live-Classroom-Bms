@@ -1,0 +1,45 @@
+﻿@using Redcdn.ClassRoom.Facade;
+@using RedCdn.ClassRoom.BMS;
+
+@model PagingQueryResultDto<RecordFileModel>
+
+@{
+    var page = 0;
+    int.TryParse(Request.QueryString["page"], out page);
+}
+
+<table total-count="@Model.TotalCount" page-size="@ViewBag.PSize" current-page="@page" border="0" cellpadding="0" cellspacing="0" class="grouplist view" id="grouplist" style="margin-right:34px;">
+    <thead>
+        <tr>
+            <td width="72">日期 </td>
+            <td width="78">主讲教室</td>
+            <td width="150" style="width:90px; white-space:normal; word-break:break-all;">课序</td>
+            <td width="59">年级</td>
+            <td width="98">课程名称 </td>
+            <td width="98">录制时间 </td>
+            <td width="98">时长</td>
+            <td width="137">操作</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Result) {
+            <tr>
+                <td>@item.WeekDayName</td>
+                <td>@item.MainClassRoomName </td>
+                <td>@item.CurriculumNumber</td>
+                <td>@item.GradeName</td>
+                <td>@item.CurriCulumName</td>
+                <td>@item.StartTime</td>
+                <td>@item.Duration</td>
+                <td><a id="a=edit" href="@Url.Action("Detail", "recordfile", new { page = @page, id = @item.Id })">查看</a>&nbsp;&nbsp;<a id="a-delete" url="@Url.Action("delete","recordfile",new{id=@item.Id})" delete-hint="选中录制文件" href="#">删除</a>&nbsp;&nbsp;</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        deletecontentfromlist('/recordfile/index');
+    });
+
+</script>

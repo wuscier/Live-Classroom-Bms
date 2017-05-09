@@ -1,0 +1,15 @@
+F:\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\Redcdn.ClassRoom.Module.dll
+F:\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\Redcdn.ClassRoom.Module.pdb
+F:\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\GM.Orm.dll
+F:\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\MySql.Data.dll
+F:\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\GM.Orm.pdb
+F:\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\obj\Debug\Redcdn.ClassRoom.Module.dll
+F:\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\obj\Debug\Redcdn.ClassRoom.Module.pdb
+F:\old\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\Redcdn.ClassRoom.Module.dll
+F:\old\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\Redcdn.ClassRoom.Module.pdb
+F:\old\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\GM.Orm.dll
+F:\old\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\MySql.Data.dll
+F:\old\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\bin\Debug\GM.Orm.pdb
+F:\old\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\obj\Debug\Redcdn.ClassRoom.Module.csprojResolveAssemblyReference.cache
+F:\old\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\obj\Debug\Redcdn.ClassRoom.Module.dll
+F:\old\GIT\ClassRoom.BMS\Redcdn.ClassRoom.Module\obj\Debug\Redcdn.ClassRoom.Module.pdb

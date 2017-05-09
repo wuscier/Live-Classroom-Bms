@@ -1,0 +1,91 @@
+﻿@model RedCdn.ClassRoom.BMS.SystemManagerModule
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/layer/layer.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type=" text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+@using (Html.BeginForm("EditInfo", "SystemManager", FormMethod.Post, new Dictionary<string, object>() { { "id", "formsystemmanage" } })) {
+    <div class="clear">
+        <h6 class="tips"><span></span></h6>
+        <ul class="management" ngdesc="@ViewBag.TitleDesc">
+            <li>
+                <span><font>校园管理员账号：</font></span>
+                @Html.HiddenFor(model => model.Id)
+                @Html.TextBoxFor(model => model.SchoolManagerAccount)
+                <font class="wenzig">@Html.ValidationMessageFor(model => model.SchoolManagerAccount)</font>
+            </li>
+            <li><span><font> 校园管理员名称：</font></span>@Html.TextBoxFor(model => model.SchoolManagerName)<font class="wenzig">@Html.ValidationMessageFor(model => model.SchoolManagerName)</font></li>
+            <li><span><font> 校园管理员密码：</font></span>@Html.PasswordFor(model => model.SchoolManagerPassWord)</li>
+            <li>
+                <span><font class="wenzitop"> 同步教室号码池：</font></span>
+                @Html.TextAreaFor(model => model.NumberPools, new Dictionary<string, object>()
+                {
+                    {"max-height", "100px"},
+                    {"max-width", "200px"},
+                    {"resize", "none"},
+                    {"outline", "none"},
+                    {"width", "200px"},
+                    {"height", "100px"}
+                })
+                <font class="wenzig">
+                    供给校园同步教室的号码池，每行一个号码，多个号码已回车换行分割 例子
+                    如下：69001001  69001002
+                </font>
+            </li>
+            <li style="height: 120px; margin-top: 60px;">
+                @*<a class="xiaobtn" href="#" onclick="submitForm('#formsystemmanage')" style="margin-left: 131px; margin-top: 0px;">保存</a>*@ 
+                <input style="margin-top: 0; margin-left: 131px;" type="button" class="submit" onmouseover=" this.style.backgroundPosition = 'left -33px' " onmouseout=" this.style.backgroundPosition = 'left top' " onclick=" submitForm('#formsystemmanage') " value="保 存" />
+                <a href="@Url.Action("index", "classroom", null)" style="margin-top: 0px; margin-left: 60px;" class="xiaobtn">返 回</a>
+                <br />
+            </li>
+        </ul>
+    </div>
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        createnavigation();
+    });
+
+    function submitForm(formid) {
+
+        var account = $('#SchoolManagerAccount').val();
+        var anmae = $('#SchoolManagerName').val();
+        if (account === "" || anmae === "")
+            return;
+
+
+        $(formid).ajaxSubmit({
+            //beforeSend: function () {
+            //  //  $.messager.progress({
+            //      //  text: '正在等待提交结果，请稍候...'
+            //    });
+            //},
+            success: function (result, statusText) {
+                layer.msg(result.message, { icon: 1, time: 1000 });
+                
+            },
+            error: function () {
+                //alert('系统错误，请稍候再试');
+                layer.alert('系统错误，请稍候再试', { icon: 7, time: 3000 });
+            },
+            complete: function () {
+                // $.messager.progress('close');
+                location.href = '@Url.Action("edit","systemmanager")';
+            }
+        });
+    }
+
+    /*创建面包屑导航菜单*/
+    function createnavigation() {
+        var ngDesc = $('ul.management').attr('ngdesc');
+
+        var div = $('div.position');
+        div.html('');
+        div.append('当前位置： <a href="/">首页 </a> >'+ngDesc);
+    }
+</script>

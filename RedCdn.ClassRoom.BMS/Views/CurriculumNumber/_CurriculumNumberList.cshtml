@@ -1,0 +1,36 @@
+﻿@using Redcdn.ClassRoom.Facade;
+@using RedCdn.ClassRoom.BMS;
+@model PagingQueryResultDto<CurriculumNumberModel>
+    
+@{
+    var page = 0;
+    int.TryParse(Request.QueryString["page"], out page);
+}
+
+<table total-count="@Model.TotalCount" page-size="@ViewBag.PSize" current-page="@page" border="0" cellpadding="0" cellspacing="0" class="grouplist view" id="grouplist" style="margin-right:34px;">
+    <thead>
+        <tr>
+            <td width="59">课序</td>
+            <td width="59">上课时间</td>
+            <td width="59">课节时长(分钟)</td>
+            <td width="137">操作</td>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in @Model.Result) {
+            <tr>
+                <td>@item.Name </td>
+                <td>@item.StarTime.GetDateTimeFormats('t')[0] </td>
+                <td>@item.Duration </td>
+                <td><a id="a=edit" href="@Url.Action("edit", "CurriculumNumber", new { page = @page, id = @item.Id })#menu=ChildMenu3">编辑</a>&nbsp;&nbsp;<a url="@Url.Action("delete", "CurriculumNumber", new { id = @item.Id })" delete-hint="选中课序" id="a-delete" href="###">删除</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(function () {
+        deletecontentfromlist('/CurriculumNumber/index');
+    });
+
+</script>

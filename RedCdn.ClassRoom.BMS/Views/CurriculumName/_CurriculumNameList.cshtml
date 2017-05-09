@@ -1,0 +1,32 @@
+﻿@using Redcdn.ClassRoom.Facade;
+@using RedCdn.ClassRoom.BMS;
+@model PagingQueryResultDto<CurriculumNameModel>
+
+@{
+    var page = 0;
+    int.TryParse(Request.QueryString["page"], out page);
+}
+
+<table total-count="@Model.TotalCount" page-size="@ViewBag.PSize" current-page="@page" border="0" cellpadding="0" cellspacing="0" class="grouplist view" id="grouplist" style="margin-right:34px;">
+    <thead>
+        <tr>
+            <td width="59">课程</td>
+            <td width="137">操作</td>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in @Model.Result) {
+            <tr>
+                <td>@item.Name </td>
+                <td><a id="a=edit" href="@Url.Action("edit", "CurriculumName", new { page = @page, id = @item.Id })#menu=ChildMenu3">编辑</a>&nbsp;&nbsp;<a url="@Url.Action("delete", "CurriculumName", new { id = @item.Id })" delete-hint="选中课时" id="a-delete" href="###">删除</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(function () {
+        deletecontentfromlist('/CurriculumName/index');
+    });
+
+</script>

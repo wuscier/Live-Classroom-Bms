@@ -1,0 +1,38 @@
+.pagination {font-size: 90%;}
+        
+.pagination a {
+    text-decoration: none;
+	border: solid 1px #28A900;
+	color: #00086C;
+}
+
+.pagination a, .pagination span {
+    display: block;
+    float: left;
+    width:20px;
+    min-width:20px;
+    margin-right: 5px;
+	margin-bottom: 5px;
+	padding:2px 0 2px 0;
+}
+
+.pagination .current {
+    background: #00086C;
+    color: #fff;
+	border: solid 1px #28A900;
+}
+
+.pagination .prev, .pagination .next{
+	display: block;
+    float: left;
+	padding:2px 0 2px 0;
+    margin-right: 5px;
+	margin-bottom: 5px;
+}
+.pagination .noclick
+{
+	color:#ccc;
+	border-color:#ccc;
+	background:#fff;
+	border: solid 1px #ccc;	
+}

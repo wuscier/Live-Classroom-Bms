@@ -1,0 +1,9 @@
+E 2016-10-20 13:39:03.586 #:10 操作提示 RedCdn.ClassRoom.ServiceSettingManagerTool.vshost[11044]    描述:删除发布点资源失败
+    异常:System.ArgumentException: 资源不存在或已被删除
+
+Server stack trace: 
+
+
+Exception rethrown at [0]: 
+   在 GM.Business.Module.Equipment.RemoveResource(IEquipmentResource resource)
+   在 RedCdn.ClassRoom.ServiceSettingManagerTool.UIControl.FrIesRecource.button1_Click(Object sender, EventArgs e) 位置 F:\GIT\ClassRoom.BMS\ServiceSettingManagerTool\UIControl\FrIesRecource.cs:行号 121$@$

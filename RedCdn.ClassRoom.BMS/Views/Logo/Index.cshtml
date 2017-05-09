@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var logopath = string.IsNullOrEmpty(ViewBag.ImagePath) ? Url.Content("~/Content/images/sc.png") : ViewBag.ImagePath;
+}
+<script src="@Url.Content("~/Scripts/layer/layer.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm("UploadLogo", "Logo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<div class="clear">
+    <h6 class="tips"><span>LOGO管理</span></h6>
+   <div class="shangchuan"> 
+	   <a href="#"><img id="img-logo" src="content/images/sc.png" width="260" height="70" border="0" /></a>
+	   <p>
+	   <div class="file-box">
+  <form action="" method="post" enctype="multipart/form-data">
+      <input type="file" accept="image/*" name="file" class="file" id="file" size="28" onChange="document.getElementById('textfield').value=this.value">
+ <input type='text' name='textfield' id='textfield' class='txt'>  
+ <input type='button' class='btn11' value='浏览...'>
+ <input type="button" id ="upload" name="submit" class="btn11" value="上传">
+  </form>
+</div>
+</p>
+		<p>提示：支持jpg、jpeg、gif、png、bmp格式的图片</p>
+		</div>
+</div>
+    <script>
+        $(function () {
+            var img = $('img');
+
+            img.attr('src','@logopath');
+
+            $('#upload').bind('click', function () {
+                
+                if (validate() != true) {
+                    layer.msg("图片限于bmp,png,gif,jpeg,jpg格式");
+                    return false;
+                }
+
+                $('form').ajaxSubmit({
+                    success: function (result, statusText) {
+                        console.log(result.success);
+                        if (result.success == false) {
+                            layer.msg(result.message);
+                        } else {
+                            var uploadfile = "/UpFile/" + result.filename;
+                            img.attr('src', function() {
+                                return uploadfile + "?" + Math.random();
+                            });
+                            layer.msg('上传成功', { time: 1000 });
+                        }
+                    },
+                    error: function (result) {
+                        layer.msg(result.message);
+                    },
+                    complete: function (result) {
+                        if (result.success == false)
+                            layer.msg(result.message);
+                    }
+                });
+            });
+        })
+
+        function validate() {
+            var filepath = $("input[name='file']").val();
+            var extStart = filepath.lastIndexOf(".");
+            var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+            if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+                return false;
+            }
+            return true;
+        }
+       
+    </script>
+    
+}
+
